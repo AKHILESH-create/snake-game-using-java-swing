@@ -65,7 +65,7 @@ SnakeGame/
 ### Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/snake-game-java.git
+https://github.com/AKHILESH-create/Snake-Game-using-Java-GUI
 ```
 
 ### Step 2: Open the Project
