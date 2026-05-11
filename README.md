@@ -94,7 +94,8 @@ Run the `Main.java` file.
 *Add your project screenshots here.*
 
 ```bash
-/screenshots/gameplay.png
+<img width="603" height="628" alt="Screenshot 2026-05-10 135340" src="https://github.com/user-attachments/assets/d66d9421-639d-4d50-bb5a-3acd6bd1024b" />
+
 /screenshots/gameover.png
 ```
 
