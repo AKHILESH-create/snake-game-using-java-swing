@@ -91,8 +91,6 @@ Run the `Main.java` file.
 
 ## 📸 Screenshots
 
-*Add your project screenshots here.*
-
 ```bash
 /screenshots/gameplay.png
 /screenshots/gameover.png
