@@ -338,9 +338,7 @@ public class GamePanel extends JPanel implements ActionListener {
                 applesEaten += 5;
 
                 bodyParts += 2;
-
                 goldenAppleVisible = false;
-
                 goldenAppleX = -100;
                 goldenAppleY = -100;
 
