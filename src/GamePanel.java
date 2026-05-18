@@ -26,6 +26,13 @@ public class GamePanel extends JPanel implements ActionListener {
     int highScore = 0;
     int appleX;
     int appleY;
+    int goldenAppleX;
+    int goldenAppleY;
+
+    boolean goldenAppleVisible = false;
+    int[] obstacleX = new int[5];
+    int[] obstacleY = new int[5];
+
 
     char direction = 'R';
 
@@ -59,6 +66,8 @@ public class GamePanel extends JPanel implements ActionListener {
         y[0] = TOP_MARGIN + UNIT_SIZE;
 
         newApple();
+
+        newObstacle();
 
         running = true;
 
@@ -115,6 +124,7 @@ public class GamePanel extends JPanel implements ActionListener {
             g.setColor(Color.white);
             g.drawLine(0, TOP_MARGIN, SCREEN_WIDTH, TOP_MARGIN);
 
+            //APPLE
             g.setColor(Color.red);
 
             g.fillOval(
@@ -124,6 +134,36 @@ public class GamePanel extends JPanel implements ActionListener {
                     UNIT_SIZE
             );
 
+            //GOLDEN APPLE
+            if(goldenAppleVisible) {
+
+                g.setColor(Color.yellow);
+
+                g.fillOval(
+                        goldenAppleX,
+                        goldenAppleY,
+                        UNIT_SIZE,
+                        UNIT_SIZE
+                );
+            }
+
+            //OBSTACLE
+            if(level >= 1) {
+
+                g.setColor(Color.gray);
+
+                for(int i = 0; i < 5; i++) {
+
+                    g.fillRect(
+                            obstacleX[i],
+                            obstacleY[i],
+                            UNIT_SIZE,
+                            UNIT_SIZE
+                    );
+                }
+            }
+
+            //SNAKE
             for(int i = 0; i < bodyParts; i++) {
 
                 if(i == 0) {
@@ -177,6 +217,56 @@ public class GamePanel extends JPanel implements ActionListener {
         appleY = random.nextInt((SCREEN_HEIGHT - TOP_MARGIN) / UNIT_SIZE) * UNIT_SIZE + TOP_MARGIN;
     }
 
+    public void newGoldenApple() {
+
+        goldenAppleX =
+                random.nextInt(SCREEN_WIDTH / UNIT_SIZE)
+                        * UNIT_SIZE;
+
+        goldenAppleY =
+                random.nextInt((SCREEN_HEIGHT - TOP_MARGIN)
+                        / UNIT_SIZE)
+                        * UNIT_SIZE + TOP_MARGIN;
+
+        // Prevent overlap with normal apple
+        while(goldenAppleX == appleX &&
+                goldenAppleY == appleY) {
+
+            goldenAppleX =
+                    random.nextInt(SCREEN_WIDTH / UNIT_SIZE)
+                            * UNIT_SIZE;
+
+            goldenAppleY =
+                    random.nextInt((SCREEN_HEIGHT - TOP_MARGIN)
+                            / UNIT_SIZE)
+                            * UNIT_SIZE + TOP_MARGIN;
+        }
+
+        goldenAppleVisible = true;
+    }
+
+
+    public void newObstacle() {
+
+        for(int i = 0; i < 5; i++) {
+
+            do {
+
+                obstacleX[i] =
+                        random.nextInt(SCREEN_WIDTH / UNIT_SIZE)
+                                * UNIT_SIZE;
+
+                obstacleY[i] =
+                        random.nextInt((SCREEN_HEIGHT - TOP_MARGIN)
+                                / UNIT_SIZE)
+                                * UNIT_SIZE + TOP_MARGIN;
+
+            }
+            while(obstacleX[i] < 200 &&
+                    obstacleY[i] < TOP_MARGIN + 200);
+        }
+    }
+
     public void move() {
 
         for(int i = bodyParts; i > 0; i--) {
@@ -205,36 +295,64 @@ public class GamePanel extends JPanel implements ActionListener {
         }
     }
 
+
     public void checkApple() {
 
-        if((x[0] == appleX) && (y[0] == appleY)) {
+            // NORMAL RED APPLE
+            if ((x[0] == appleX) && (y[0] == appleY)) {
 
-            bodyParts++;
+                bodyParts++;
+                applesEaten++;
 
-            applesEaten++;
+                playSound("assets/eat.wav");
 
-            playSound("assets/eat.wav");
+                if(applesEaten > highScore) {
+                    highScore = applesEaten;
+                    saveHighScore();
+                }
 
-            if(applesEaten > highScore) {
+                if(applesEaten % 5 == 0) {
 
-                highScore = applesEaten;
+                    level++;
 
-                saveHighScore();
-            }
+                    newObstacle();
 
-            if(applesEaten % 5 == 0) {
+                    if(DELAY > 50) {
+                        timer.setDelay(timer.getDelay() - 10);
+                    }
+                }
 
-                level++;
+                newApple();
 
-                if(DELAY > 50) {
-
-                    timer.setDelay(timer.getDelay() - 10);
+                if(!goldenAppleVisible && random.nextInt(5) == 0) {
+                    newGoldenApple();
                 }
             }
 
-            newApple();
-        }
+            // GOLDEN APPLE
+        
+            if(goldenAppleVisible &&
+                    x[0] == goldenAppleX &&
+                    y[0] == goldenAppleY) {
+
+                applesEaten += 5;
+
+                bodyParts += 2;
+
+                goldenAppleVisible = false;
+
+                goldenAppleX = -100;
+                goldenAppleY = -100;
+
+                playSound("assets/eat.wav");
+
+                if(applesEaten > highScore) {
+                    highScore = applesEaten;
+                    saveHighScore();
+                }
+            }
     }
+
 
     public void checkCollisions() {
 
@@ -266,12 +384,27 @@ public class GamePanel extends JPanel implements ActionListener {
             running = false;
         }
 
+        //Boundary collision
+        if(level >= 1) {
+
+            for(int i = 0; i < 5; i++) {
+
+                if(x[0] == obstacleX[i] &&
+                        y[0] == obstacleY[i]) {
+
+                    running = false;
+                }
+            }
+        }
+
         if(!running) {
             playSound("assets/gameover.wav");
 
             timer.stop();
         }
     }
+
+
     public void restartGame() {
 
         bodyParts = 6;
@@ -300,6 +433,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
     }
 
+
     public void loadHighScore() {
 
         try {
@@ -318,6 +452,7 @@ public class GamePanel extends JPanel implements ActionListener {
         }
     }
 
+
     public void saveHighScore() {
 
         try {
@@ -334,6 +469,8 @@ public class GamePanel extends JPanel implements ActionListener {
             e.printStackTrace();
         }
     }
+
+
     public void playSound(String soundFile) {
 
         try {
@@ -354,6 +491,7 @@ public class GamePanel extends JPanel implements ActionListener {
             e.printStackTrace();
         }
     }
+
 
     public void gameOver(Graphics g) {
 
@@ -397,6 +535,7 @@ public class GamePanel extends JPanel implements ActionListener {
         );
     }
 
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -411,6 +550,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
         repaint();
     }
+
 
     public class MyKeyAdapter extends KeyAdapter {
 
