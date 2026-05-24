@@ -150,7 +150,7 @@ public class GamePanel extends JPanel implements ActionListener {
             // Instructions
             g.setFont(
                     new Font(
-                            "Consolas",
+                            "Arial",
                             Font.BOLD,
                             22
                     )
@@ -160,7 +160,7 @@ public class GamePanel extends JPanel implements ActionListener {
             g.setColor(Color.green);
 
             g.drawString(
-                    "▶ Press ENTER to Start",
+                    "Press ENTER to Start",
                     130,
                     230
             );
@@ -169,7 +169,7 @@ public class GamePanel extends JPanel implements ActionListener {
             g.setColor(Color.yellow);
 
             g.drawString(
-                    "⏸ Press P to Pause",
+                    "Press P to Pause",
                     130,
                     280
             );
@@ -178,7 +178,7 @@ public class GamePanel extends JPanel implements ActionListener {
             g.setColor(Color.red);
 
             g.drawString(
-                    "✖ Press ESC to Exit",
+                    "Press ESC to Exit",
                     130,
                     330
             );
@@ -207,7 +207,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
             g.setFont(
                     new Font(
-                            "Consolas",
+                            "Arial",
                             Font.BOLD,
                             20
                     )
@@ -620,25 +620,50 @@ public class GamePanel extends JPanel implements ActionListener {
         g.setColor(Color.black);
         g.fillRect(0,0,SCREEN_WIDTH,SCREEN_HEIGHT);
 
-        // Top HUD remains visible
-        g.setColor(Color.darkGray);
+
+        // Top information bar during Game Over
+        g.setColor(new Color(255,220,230)); // light pink
         g.fillRect(0,0,SCREEN_WIDTH,TOP_MARGIN);
 
-        g.setColor(Color.white);
-        g.setFont(new Font("Consolas",Font.BOLD,18));
+        g.setColor(Color.black);
 
-        g.drawString("Level : " + level,20,30);
+        g.setFont(
+                new Font(
+                        "Arial",
+                        Font.BOLD,
+                        20
+                )
+        );
 
+    // Level
         g.drawString(
-                "Score : " + applesEaten,
-                SCREEN_WIDTH/2-50,
+                "Level : " + level,
+                20,
                 30
         );
 
+    // Score
+        g.drawString(
+                "Score : " + applesEaten,
+                SCREEN_WIDTH/2 - 60,
+                30
+        );
+
+    // High score
         g.drawString(
                 "High Score : " + highScore,
-                SCREEN_WIDTH-180,
+                SCREEN_WIDTH - 180,
                 30
+        );
+
+    // Bottom line of bar
+        g.setColor(Color.white);
+
+        g.drawLine(
+                0,
+                TOP_MARGIN,
+                SCREEN_WIDTH,
+                TOP_MARGIN
         );
 
         // Popup box
