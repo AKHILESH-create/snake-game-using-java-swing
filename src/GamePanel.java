@@ -122,6 +122,10 @@ public class GamePanel extends JPanel implements ActionListener {
 
             levelCompleteScreen(g);
         }
+        else if(paused){
+
+            pauseScreen(g);
+        }
         else if(running) {
 
             g.setColor(Color.darkGray);
@@ -625,6 +629,54 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
 
+    //pause screen
+    public void pauseScreen(Graphics g){
+
+        g.setColor(new Color(200,200,255));
+
+        g.fillRoundRect(
+                100,
+                180,
+                400,
+                180,
+                30,
+                30
+        );
+
+        g.setColor(Color.red);
+
+        g.setFont(
+                new Font(
+                        "Arial",
+                        Font.BOLD,
+                        40
+                )
+        );
+
+        g.drawString(
+                "PAUSED",
+                190,
+                250
+        );
+
+        g.setColor(Color.black);
+
+        g.setFont(
+                new Font(
+                        "Arial",
+                        Font.BOLD,
+                        22
+                )
+        );
+
+        g.drawString(
+                "Press P to Resume",
+                175,
+                310
+        );
+    }
+
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -733,9 +785,15 @@ public class GamePanel extends JPanel implements ActionListener {
 
                 paused = !paused;
 
-                if(paused) {
+                if(paused){
+
                     timer.stop();
-                } else {
+
+                    repaint();
+
+                }
+                else{
+
                     timer.start();
                 }
             }
