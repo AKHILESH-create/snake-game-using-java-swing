@@ -89,30 +89,137 @@ public class GamePanel extends JPanel implements ActionListener {
 
         if(!gameStarted) {
 
+            // Background
             g.setColor(Color.black);
-            g.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+            g.fillRect(0,0,SCREEN_WIDTH,SCREEN_HEIGHT);
 
-            g.setColor(Color.green);
-            g.setFont(new Font("Ink Free", Font.BOLD, 50));
+            // Outer glow border
+            g.setColor(new Color(150,100,255));
+            g.fillRoundRect(
+                    65,
+                    80,
+                    470,
+                    430,
+                    30,
+                    30
+            );
 
-            FontMetrics titleMetrics = getFontMetrics(g.getFont());
+            // Main popup
+            g.setColor(new Color(15,15,35));
+
+            g.fillRoundRect(
+                    70,
+                    85,
+                    460,
+                    420,
+                    30,
+                    30
+            );
+
+            // Title
+            g.setColor(new Color(50,255,50));
+
+            g.setFont(
+                    new Font(
+                            "Arial",
+                            Font.BOLD,
+                            48
+                    )
+            );
+
+            FontMetrics title=
+                    getFontMetrics(g.getFont());
 
             g.drawString(
                     "SNAKE GAME",
-                    (SCREEN_WIDTH - titleMetrics.stringWidth("SNAKE GAME")) / 2,
+                    (SCREEN_WIDTH-title.stringWidth(
+                            "SNAKE GAME"))/2,
                     150
             );
 
+            // Decorative line
+            g.setColor(new Color(0,255,150));
+
+            g.drawLine(
+                    180,
+                    170,
+                    420,
+                    170
+            );
+
+            // Instructions
+            g.setFont(
+                    new Font(
+                            "Consolas",
+                            Font.BOLD,
+                            22
+                    )
+            );
+
+            // Start
+            g.setColor(Color.green);
+
+            g.drawString(
+                    "▶ Press ENTER to Start",
+                    130,
+                    230
+            );
+
+            // Pause
+            g.setColor(Color.yellow);
+
+            g.drawString(
+                    "⏸ Press P to Pause",
+                    130,
+                    280
+            );
+
+            // Exit
+            g.setColor(Color.red);
+
+            g.drawString(
+                    "✖ Press ESC to Exit",
+                    130,
+                    330
+            );
+
+            // Move section title
+            g.setColor(
+                    new Color(0,180,255)
+            );
+
+            g.setFont(
+                    new Font(
+                            "Arial",
+                            Font.BOLD,
+                            24
+                    )
+            );
+
+            g.drawString(
+                    "MOVE SNAKE",
+                    200,
+                    390
+            );
+
+            // Arrow controls
             g.setColor(Color.white);
-            g.setFont(new Font("Consolas", Font.BOLD, 24));
 
-            g.drawString("Press ENTER to Start", 160, 260);
+            g.setFont(
+                    new Font(
+                            "Consolas",
+                            Font.BOLD,
+                            20
+                    )
+            );
 
-            g.drawString("Press ESC to Exit", 180, 310);
+            g.drawString("↑ Move Up",170,430);
 
-            g.drawString("Arrow Keys to Move", 150, 380);
+            g.drawString("↓ Move Down",170,460);
 
-            g.drawString("Press P to Pause", 170, 430);
+            g.drawString("← Move Left",330,430);
+
+            g.drawString("→ Move Right",330,460);
 
             return;
         }
@@ -128,8 +235,15 @@ public class GamePanel extends JPanel implements ActionListener {
         }
         else if(running) {
 
-            g.setColor(Color.darkGray);
-            g.fillRect(0, 0, SCREEN_WIDTH, TOP_MARGIN);
+            g.setColor(new Color(255,182,193));
+
+            g.fillRect(
+                    0,
+                    0,
+                    SCREEN_WIDTH,
+                    TOP_MARGIN
+            );
+
             // Boundary line
             g.setColor(Color.white);
             g.drawLine(0, TOP_MARGIN, SCREEN_WIDTH, TOP_MARGIN);
@@ -200,8 +314,8 @@ public class GamePanel extends JPanel implements ActionListener {
             }
 
             // HUD AREA (Top)
-            g.setColor(Color.white);
-            g.setFont(new Font("Consolas", Font.BOLD, 18));
+            g.setColor(Color.black);
+            g.setFont(new Font("Arial", Font.BOLD, 20));
 
             // Level
             g.drawString("Level: " + level, 20, 30);
