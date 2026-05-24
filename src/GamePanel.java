@@ -39,6 +39,8 @@ public class GamePanel extends JPanel implements ActionListener {
     boolean gameStarted = false;
     boolean running = false;
     boolean paused = false;
+    boolean levelComplete = false;
+    boolean waitingNextLevel = false;
 
     Timer timer;
     Random random;
@@ -116,7 +118,11 @@ public class GamePanel extends JPanel implements ActionListener {
         }
 
 
-        if(running) {
+        if(levelComplete){
+
+            levelCompleteScreen(g);
+        }
+        else if(running) {
 
             g.setColor(Color.darkGray);
             g.fillRect(0, 0, SCREEN_WIDTH, TOP_MARGIN);
@@ -202,12 +208,14 @@ public class GamePanel extends JPanel implements ActionListener {
             // High Score
             g.drawString("High Score: " + highScore, SCREEN_WIDTH - 200, 30);
 
-        } else {
+        }
+        else{
 
             gameOver(g);
         }
     }
 
+    //new apple
     public void newApple() {
 
         appleX =
@@ -311,15 +319,12 @@ public class GamePanel extends JPanel implements ActionListener {
                     saveHighScore();
                 }
 
-                if(applesEaten % 5 == 0) {
+                if(applesEaten % 10 == 0) {
 
-                    level++;
+                    levelComplete = true;
+                    waitingNextLevel = true;
 
-                    newObstacle();
-
-                    if(DELAY > 50) {
-                        timer.setDelay(timer.getDelay() - 10);
-                    }
+                    timer.stop();
                 }
 
                 newApple();
@@ -402,7 +407,7 @@ public class GamePanel extends JPanel implements ActionListener {
         }
     }
 
-
+    //restart game
     public void restartGame() {
 
         bodyParts = 6;
@@ -574,6 +579,51 @@ public class GamePanel extends JPanel implements ActionListener {
         );
     }
 
+    //level complete screen
+    public void levelCompleteScreen(Graphics g){
+
+        g.setColor(new Color(200,200,255));
+
+        g.fillRoundRect(
+                100,
+                180,
+                400,
+                180,
+                30,
+                30
+        );
+
+        g.setColor(Color.blue);
+
+        g.setFont(
+                new Font("Arial",
+                        Font.BOLD,
+                        35)
+        );
+
+        g.drawString(
+                "LEVEL COMPLETE!",
+                145,
+                250
+        );
+
+        g.setColor(Color.black);
+
+        g.setFont(
+                new Font(
+                        "Arial",
+                        Font.BOLD,
+                        22
+                )
+        );
+
+        g.drawString(
+                "Press ENTER for Next Level",
+                150,
+                310
+        );
+    }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -602,16 +652,39 @@ public class GamePanel extends JPanel implements ActionListener {
 
                 startGame();
             }
+
             // EXIT GAME
             if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 
                 System.exit(0);
             }
+
             // SWITCH FOR MOVEMENT
             switch(e.getKeyCode()) {
                 case KeyEvent.VK_ENTER:
 
-                    if(!running) {
+                    if(waitingNextLevel){
+
+                        level++;
+
+                        waitingNextLevel = false;
+
+                        levelComplete = false;
+
+                        newObstacle();
+
+                        newApple();
+
+                        if(DELAY > 50){
+                            timer.setDelay(
+                                    timer.getDelay()-10
+                            );
+                        }
+
+                        timer.start();
+                    }
+
+                    else if(!running){
 
                         restartGame();
                     }
