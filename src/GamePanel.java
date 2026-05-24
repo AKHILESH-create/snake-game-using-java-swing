@@ -493,43 +493,84 @@ public class GamePanel extends JPanel implements ActionListener {
 
     public void gameOver(Graphics g) {
 
-        g.setColor(Color.red);
+        // Dark background
+        g.setColor(Color.black);
+        g.fillRect(0,0,SCREEN_WIDTH,SCREEN_HEIGHT);
 
-        g.setFont(
-                new Font("Ink Free", Font.BOLD, 50)
-        );
+        // Top HUD remains visible
+        g.setColor(Color.darkGray);
+        g.fillRect(0,0,SCREEN_WIDTH,TOP_MARGIN);
 
-        FontMetrics metrics1 =
-                getFontMetrics(g.getFont());
+        g.setColor(Color.white);
+        g.setFont(new Font("Consolas",Font.BOLD,18));
+
+        g.drawString("Level : " + level,20,30);
 
         g.drawString(
-                "Game Over",
-                (SCREEN_WIDTH - metrics1.stringWidth(
-                        "Game Over"))/2,
-                SCREEN_HEIGHT/2
+                "Score : " + applesEaten,
+                SCREEN_WIDTH/2-50,
+                30
         );
-        g.setFont(new Font("Ink Free", Font.PLAIN, 20));
+
+        g.drawString(
+                "High Score : " + highScore,
+                SCREEN_WIDTH-180,
+                30
+        );
+
+        // Popup box
+        g.setColor(new Color(220,220,240));
+
+        g.fillRoundRect(
+                110,
+                180,
+                380,
+                170,
+                30,
+                30
+        );
+
+        g.setColor(Color.red);
+
+        g.drawRoundRect(
+                110,
+                180,
+                380,
+                170,
+                30,
+                30
+        );
+
+        // Game Over title
+        g.setFont(
+                new Font(
+                        "Arial",
+                        Font.BOLD,
+                        40
+                )
+        );
+
+        g.drawString(
+                "GAME OVER",
+                165,
+                240
+        );
+
+        // Restart text
+        g.setFont(
+                new Font(
+                        "Arial",
+                        Font.BOLD,
+                        22
+                )
+        );
+
+        g.setColor(Color.black);
 
         g.drawString(
                 "Press ENTER to Restart",
-                170,
-                SCREEN_HEIGHT / 2 + 50
-        );
-
-        g.setColor(Color.white);
-
-        g.setFont(
-                new Font("Ink Free", Font.BOLD, 30)
-        );
-
-        FontMetrics metrics2 =
-                getFontMetrics(g.getFont());
-
-        g.drawString(
-                "Score: " + applesEaten,
-                (SCREEN_WIDTH - metrics2.stringWidth(
-                        "Score: " + applesEaten))/2,
-                g.getFont().getSize()
+                155,
+                290
         );
     }
 
