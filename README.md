@@ -1,23 +1,29 @@
-# Snake Game using Java Swing
+# GUI-Based Snake Game 
 
 ## 🐍 Overview
 
-The **Snake Game using Java Swing** is a classic arcade-style game developed using **Java Swing** and **Object-Oriented Programming (OOP)** concepts. The project focuses on real-time user interaction, keyboard event handling, score tracking, and GUI-based game development.
+The **GUI-Based Snake Game** is an interactive desktop game developed using **Java Swing**, **AWT**, and **Object-Oriented Programming (OOP)** concepts. The project provides a modern graphical user interface with multiple gameplay features such as levels, obstacles, golden apples, sound effects, score tracking, pause/resume functionality, and high-score management.
 
-The player controls a snake that moves around the screen to collect food while avoiding collisions with boundaries and itself. The game speed and difficulty increase as the score grows.
+The objective of the game is to control the snake, collect apples to increase the score, advance through levels, and avoid collisions with obstacles, walls, and the snake's own body.
 
 ---
 
 ## ✨ Features
 
-* 🎮 Smooth snake movement
-* 🍎 Random food generation
+* 🎮 Smooth snake movement using arrow keys
+* 🍎 Random red apple generation
+* ⭐ Golden Apple bonus system (+5 score)
+* 🚧 Obstacle-based gameplay
 * 📈 Real-time score tracking
-* 🚧 Boundary collision detection
-* 💀 Game Over functionality
-* ⌨️ Keyboard controls using arrow keys
+* 🏆 High-score saving using file handling
+* 🎯 Multi-level progression system
+* ⏸️ Pause and Resume functionality
+* 🔊 Sound effects for eating apples and Game Over
+* 💀 Game Over popup screen
+* 🎉 Level Complete popup screen
+* 🚀 Start Screen with instructions
 * 🖥️ Java Swing based GUI
-* ⚡ Increasing difficulty with progression
+* ⚡ Increasing difficulty as levels progress
 
 ---
 
@@ -27,6 +33,10 @@ The player controls a snake that moves around the screen to collect food while a
 * Java Swing
 * AWT (Abstract Window Toolkit)
 * Object-Oriented Programming (OOP)
+* Event Handling
+* Java Timer
+* File Handling
+* Audio System API
 
 ---
 
@@ -37,13 +47,14 @@ SnakeGame/
 │
 ├── src/
 │   ├── GamePanel.java
-│   ├── Snake.java
-│   ├── Food.java
 │   ├── GameFrame.java
-│   └── Main.java
+│   └── SnakeGame.java
 │
 ├── assets/
-├── screenshots/
+│   ├── eat.wav
+│   └── gameover.wav
+│
+├── highscore.txt
 └── README.md
 ```
 
@@ -51,12 +62,18 @@ SnakeGame/
 
 ## ⚙️ How the Game Works
 
-1. The snake starts moving automatically.
-2. The player controls the snake using keyboard arrow keys.
-3. Food appears randomly on the screen.
-4. The snake grows after eating food.
-5. The game ends if the snake collides with walls or itself.
-6. Final score is displayed on the screen.
+1. The player starts the game from the welcome screen.
+2. The snake moves continuously in the selected direction.
+3. Red apples increase the score by 1 point.
+4. Golden apples provide bonus points and additional growth.
+5. After collecting enough apples, the player advances to the next level.
+6. Obstacles appear on the game board, increasing difficulty.
+7. The game ends if the snake collides with:
+
+   * Walls
+   * Obstacles
+   * Its own body
+8. The highest score achieved is saved and displayed.
 
 ---
 
@@ -65,34 +82,49 @@ SnakeGame/
 ### Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/snake-game-java.git
+git clone https://github.com/AKHILESH-create/gui-based-snake-game.git
 ```
 
 ### Step 2: Open the Project
 
-* Open the project in IntelliJ IDEA / Eclipse / VS Code.
+Open the project in:
 
-### Step 3: Compile and Run
+* IntelliJ IDEA
+* Eclipse
+* VS Code
 
-Run the `Main.java` file.
+### Step 3: Run the Game
+
+Execute:
+
+```bash
+SnakeGame.java
+```
+
+or run the generated JAR file.
 
 ---
 
 ## 🎯 Controls
 
-| Key | Action     |
-| --- | ---------- |
-| ↑   | Move Up    |
-| ↓   | Move Down  |
-| ←   | Move Left  |
-| →   | Move Right |
+| Key   | Action                            |
+| ----- | --------------------------------- |
+| ↑     | Move Up                           |
+| ↓     | Move Down                         |
+| ←     | Move Left                         |
+| →     | Move Right                        |
+| Enter | Start Game / Next Level / Restart |
+| P     | Pause / Resume                    |
+| ESC   | Exit Game                         |
 
 ---
 
 ## 📸 Screenshots
 
 ```bash
+/screenshots/startscreen.png
 /screenshots/gameplay.png
+/screenshots/levelcomplete.png
 /screenshots/gameover.png
 ```
 
@@ -100,22 +132,41 @@ Run the `Main.java` file.
 
 ## 📚 Concepts Used
 
+* Java Swing GUI Development
 * Event Handling
-* GUI Development
 * Collision Detection
-* Arrays and Data Structures
 * Game Loop Logic
+* File Handling
+* Audio Integration
 * Object-Oriented Programming
+* Data Structures using Arrays
+* State Management
 
 ---
 
 ## 🚀 Future Enhancements
 
-* Add multiple difficulty levels
-* Add sound effects and background music
-* Add pause/resume functionality
-* Implement high-score saving system
-* Add multiplayer mode
+* Player Name System
+* Leaderboard Support
+* Multiple Difficulty Modes
+* Additional Power-Ups
+* Advanced Animations
+* Database Integration
+* Multiplayer Mode
+
+---
+
+## 🎓 Learning Outcomes
+
+This project helped in understanding:
+
+* Java Swing Application Development
+* Event-Driven Programming
+* Game Development Fundamentals
+* Collision Detection Techniques
+* File Handling and Data Persistence
+* GUI Design and User Experience
+* Debugging and Testing
 
 ---
 
@@ -123,10 +174,10 @@ Run the `Main.java` file.
 
 **Akhilesh Kumar**
 
-Developed as a Java GUI project for learning game development and user interaction handling.
+Developed as a Java GUI project to learn game development, object-oriented programming, and user interaction handling.
 
 ---
 
 ## 📄 License
 
-This project is open-source and available for educational purposes.
+This project is open-source and intended for educational and learning purposes.
