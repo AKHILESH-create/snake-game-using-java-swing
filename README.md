@@ -1,8 +1,8 @@
-# Snake Game using Java GUI
+# Snake Game using Java Swing
 
 ## 🐍 Overview
 
-The **Snake Game using Java GUI** is a classic arcade-style game developed using **Java Swing** and **Object-Oriented Programming (OOP)** concepts. The project focuses on real-time user interaction, keyboard event handling, score tracking, and GUI-based game development.
+The **Snake Game using Java Swing** is a classic arcade-style game developed using **Java Swing** and **Object-Oriented Programming (OOP)** concepts. The project focuses on real-time user interaction, keyboard event handling, score tracking, and GUI-based game development.
 
 The player controls a snake that moves around the screen to collect food while avoiding collisions with boundaries and itself. The game speed and difficulty increase as the score grows.
 
